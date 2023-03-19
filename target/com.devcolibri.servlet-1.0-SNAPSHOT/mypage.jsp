@@ -20,7 +20,6 @@
 <br>
 <table>
     <tr>
-        <th></th>
         <th>Файл</th>
         <th>Размер</th>
         <th>Дата</th>

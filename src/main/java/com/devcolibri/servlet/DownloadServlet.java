@@ -15,21 +15,23 @@ public class DownloadServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String path;
-        if (request.getQueryString().contains("path")){
+        if (request.getQueryString().contains("path")) {
             path = request.getParameter("path");
-        }else{
+        } else {
             path = "";
         }
         path = path.replace('/', '\\');
         File file = new File(path);
         response.setContentType("application/octet-stream");
         response.setHeader("Content-Disposition", "attachment;filename=" + file.getName());
-        try (FileInputStream inputStream = new FileInputStream(file);
-             OutputStream out = response.getOutputStream()) {
-            byte[] bytes = new byte[4096];
-            int length;
-            while ((length = inputStream.read(bytes)) > 0)
-                out.write(bytes, 0, length);
+        try (
+                FileInputStream inputStream = new FileInputStream(file);
+                OutputStream out = response.getOutputStream()
+        ) {
+                byte[] bytes = new byte[4096];
+                int length;
+                while ((length = inputStream.read(bytes)) > 0)
+                    out.write(bytes, 0, length);
         }
     }
 }

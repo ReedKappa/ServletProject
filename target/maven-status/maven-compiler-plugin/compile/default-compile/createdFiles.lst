@@ -1,3 +1,8 @@
+model\FileStructure.class
+com\devcolibri\servlet\LogOutServlet.class
+service\AccountService.class
+com\devcolibri\servlet\LoginServlet.class
 com\devcolibri\servlet\DownloadServlet.class
-service\FileStructure.class
-service\Directory.class
+com\devcolibri\servlet\RegistrationServlet.class
+service\DirectoryService.class
+model\UserProfile.class

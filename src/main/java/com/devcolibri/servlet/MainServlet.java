@@ -1,7 +1,9 @@
 package com.devcolibri.servlet;
 
-import service.Directory;
-import service.FileStructure;
+import model.UserProfile;
+import service.AccountService;
+import service.DirectoryService;
+import model.FileStructure;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,7 +18,7 @@ import java.util.List;
 public class MainServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Directory dw = new Directory();
+        DirectoryService dw = new DirectoryService();
         String path;
         String uri = req.getQueryString();
         if (uri != null && uri.contains("path")) {
@@ -24,6 +26,16 @@ public class MainServlet extends HttpServlet {
         } else {
             path = "/";
         }
+        AccountService accountService = new AccountService();
+        UserProfile user = accountService.getBySession(req.getSession().getId());
+        if (accountService.hasActiveSession() || accountService.getBySession(req.getSession().getId()) == null) {
+            resp.sendRedirect("http://localhost:8080/login");
+        }
+        if (!path.contains(user.getLogin())) {
+            path = user.getRootDirectory();
+            resp.sendRedirect("http://localhost:8080/?path=" + path);
+        }
+
         if (path.matches("[A-Z]:")) {
             path = File.listRoots()[0].getPath();
         }

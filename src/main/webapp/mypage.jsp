@@ -2,7 +2,7 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.Date" %>
 <%@ page import="java.util.List" %>
-<%@ page import="service.FileStructure" %>
+<%@ page import="model.FileStructure" %>
 <!doctype html>
 <html lang="en">
 <head>
