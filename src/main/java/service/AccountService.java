@@ -32,8 +32,9 @@ public class AccountService {
         sessions.remove(user);
     }
 
-    public boolean checkUser(String login){
-        return logins.containsKey(login);
+    public boolean checkUser(String login, String password){
+        UserProfile user = logins.get(login);
+        return user != null && user.getPassword().equals(password);
     }
 
 

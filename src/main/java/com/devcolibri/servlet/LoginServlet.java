@@ -22,9 +22,9 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String login = req.getParameter("login");
         String password = req.getParameter("password");
-        String email = req.getParameter("email");
+        //String email = req.getParameter("email");
         UserProfile user = new UserProfile(login, password);
-        if (accountService.checkUser(login)) {
+        if (accountService.checkUser(login, password)) {
             if (accountService.getBySession(req.getSession().getId()) != null){
                 req.setAttribute("error", "user already in system");
                 resp.sendRedirect("http://localhost:8080/login");

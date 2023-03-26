@@ -18,8 +18,8 @@ public class RegistrationServlet extends HttpServlet {
         String login = req.getParameter("login");
         String password = req.getParameter("password");
         String email = req.getParameter("email");
-        UserProfile user = new UserProfile(login, password);
-        if (!accountService.checkUser(login)){
+        UserProfile user = new UserProfile(login, password, email);
+        if (!accountService.checkUser(login, password)){
             accountService.addUser(user);
             accountService.addSession(user, req.getSession());
         } else {
