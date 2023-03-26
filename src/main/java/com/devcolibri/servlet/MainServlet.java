@@ -1,7 +1,7 @@
 package com.devcolibri.servlet;
 
 import model.UserProfile;
-import service.AccountService;
+import service.*;
 import service.DirectoryService;
 import model.FileStructure;
 
@@ -20,21 +20,22 @@ public class MainServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         DirectoryService dw = new DirectoryService();
         String path;
-        String uri = req.getQueryString();
-        if (uri != null && uri.contains("path")) {
-            path = req.getParameter("path");
-        } else {
-            path = "/";
-        }
+        path = req.getParameter("path");
         AccountService accountService = new AccountService();
         UserProfile user = accountService.getBySession(req.getSession().getId());
         if (accountService.hasActiveSession() || accountService.getBySession(req.getSession().getId()) == null) {
             resp.sendRedirect("http://localhost:8080/login");
+            return;
         }
-        if (!path.contains(user.getLogin()) || path.contains("/..")) {
+
+        if (path == null && user != null){
             path = user.getRootDirectory();
-            resp.sendRedirect("http://localhost:8080/?path=" + path);
+            if (!path.contains(user.getLogin()) || path.contains("/..")) {
+                path = user.getRootDirectory();
+                resp.sendRedirect("http://localhost:8080/?path=" + path);
+            }
         }
+
         if (path.matches("[A-Z]:")) {
             path = File.listRoots()[0].getPath();
         }

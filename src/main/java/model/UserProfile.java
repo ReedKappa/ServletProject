@@ -1,11 +1,20 @@
 package model;
 
 public class UserProfile {
+
+    private  int id;
     private final String login;
     private final String password;
     private  String email;
     private final String rootDirectory;
 
+
+    public UserProfile(int id, String login, String password) {
+        this.id = id;
+        this.login = login;
+        this.password = password;
+        rootDirectory = "C:/" + login;
+    }
     public UserProfile(String login, String password) {
         this.login = login;
         this.password = password;

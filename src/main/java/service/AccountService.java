@@ -1,5 +1,6 @@
 package service;
 
+import SQL.DataBaseHandler;
 import model.UserProfile;
 
 import javax.servlet.http.HttpServlet;
@@ -9,20 +10,15 @@ import java.util.Map;
 import java.util.Objects;
 
 public class AccountService {
-    private static Map<String, UserProfile> logins = new HashMap<>();
+    //private static Map<String, UserProfile> logins = new HashMap<>();
     private static Map<UserProfile, HttpSession> sessions = new HashMap<>();
 
+    DataBaseHandler db = new DataBaseHandler();
+
     public void addUser(UserProfile user){
-        logins.put(user.getLogin(), user);
+        db.addUser(user);
     }
 
-    public UserProfile getUserByLogin(String login) {
-        return logins.get(login);
-    }
-
-    public HttpSession getUserBySession(UserProfile session) {
-        return sessions.get(session);
-    }
     public void addSession(UserProfile user, HttpSession session){
         if (!sessions.containsKey(user))
             sessions.put(user, session);
@@ -33,8 +29,12 @@ public class AccountService {
     }
 
     public boolean checkUser(String login, String password){
-        UserProfile user = logins.get(login);
-        return user != null && user.getPassword().equals(password);
+        for (UserProfile user : db.getAllUsers()) {
+            if (user.getLogin().equals(login)) {
+                return user.getPassword().equals(password);
+            }
+        }
+        return false;
     }
 
 
