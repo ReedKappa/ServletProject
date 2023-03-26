@@ -31,11 +31,10 @@ public class MainServlet extends HttpServlet {
         if (accountService.hasActiveSession() || accountService.getBySession(req.getSession().getId()) == null) {
             resp.sendRedirect("http://localhost:8080/login");
         }
-        if (!path.contains(user.getLogin())) {
+        if (!path.contains(user.getLogin()) || path.contains("/..")) {
             path = user.getRootDirectory();
             resp.sendRedirect("http://localhost:8080/?path=" + path);
         }
-
         if (path.matches("[A-Z]:")) {
             path = File.listRoots()[0].getPath();
         }
