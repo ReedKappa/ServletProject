@@ -1,12 +1,21 @@
 package model;
 
-public class UserProfile {
+import javax.persistence.*;
 
+@Entity
+@Table(name = "testtable")
+public class UserProfile {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private  int id;
-    private final String login;
-    private final String password;
+    @Column(name = "login")
+    private  String login;
+    @Column(name = "password")
+    private  String password;
+    @Column(name = "email")
     private  String email;
-    private final String rootDirectory;
+    @Column(name = "rootDirectory")
+    private  String rootDirectory;
 
 
     public UserProfile(int id, String login, String password) {
@@ -27,6 +36,10 @@ public class UserProfile {
         rootDirectory = "C:/" + login;
     }
 
+    public UserProfile() {
+
+    }
+
     public String getLogin() {
         return login;
     }
@@ -41,5 +54,25 @@ public class UserProfile {
 
     public String getRootDirectory() {
         return rootDirectory;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setRootDirectory(String rootDirectory) {
+        this.rootDirectory = rootDirectory;
     }
 }

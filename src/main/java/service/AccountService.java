@@ -1,6 +1,8 @@
 package service;
 
 import SQL.DataBaseHandler;
+import SQL.UsersDAO;
+import SQL.UsersDAOImplementation;
 import model.UserProfile;
 
 import javax.servlet.http.HttpServlet;
@@ -10,13 +12,13 @@ import java.util.Map;
 import java.util.Objects;
 
 public class AccountService {
-    //private static Map<String, UserProfile> logins = new HashMap<>();
+    private static UsersDAO dao = new UsersDAOImplementation();
     private static Map<UserProfile, HttpSession> sessions = new HashMap<>();
 
     DataBaseHandler db = new DataBaseHandler();
 
     public void addUser(UserProfile user){
-        db.addUser(user);
+        dao.add(user);
     }
 
     public void addSession(UserProfile user, HttpSession session){
@@ -29,7 +31,10 @@ public class AccountService {
     }
 
     public boolean checkUser(String login, String password){
-        for (UserProfile user : db.getAllUsers()) {
+        if (dao.getAll() == null) {
+            return false;
+        }
+        for (UserProfile user : dao.getAll()) {
             if (user.getLogin().equals(login)) {
                 return user.getPassword().equals(password);
             }

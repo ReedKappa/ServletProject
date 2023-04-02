@@ -28,7 +28,8 @@ public class DataBaseHandler {
             ArrayList<UserProfile> users = new ArrayList<>();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM testtable");
             while (resultSet.next()){
-                users.add(new UserProfile(resultSet.getString(1), resultSet.getString(2),
+                users.add(new UserProfile(resultSet.getString(1),
+                        resultSet.getString(2),
                         resultSet.getString(3)));
                         resultSet.getString(4);
             }
