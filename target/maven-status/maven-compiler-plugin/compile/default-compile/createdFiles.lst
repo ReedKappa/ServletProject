@@ -1,9 +1,13 @@
-model\FileStructure.class
 com\devcolibri\servlet\LogOutServlet.class
 service\AccountService.class
+SQL\UserDataSet.class
+SQL\UsersDAO.class
+com\devcolibri\servlet\RegistrationServlet.class
+model\FileStructure.class
+SQL\UsersDAOImplementation.class
 SQL\DataBaseHandler.class
+SQL\HibernateSessionFactory.class
 com\devcolibri\servlet\LoginServlet.class
 com\devcolibri\servlet\DownloadServlet.class
-com\devcolibri\servlet\RegistrationServlet.class
 service\DirectoryService.class
 model\UserProfile.class
